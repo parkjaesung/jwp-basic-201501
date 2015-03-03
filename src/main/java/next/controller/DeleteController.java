@@ -5,26 +5,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import next.dao.AnswerDao;
 import next.dao.QuestionDao;
-import next.model.Answer;
 import core.mvc.AbstractController;
 import core.mvc.ModelAndView;
 import core.utils.ServletRequestUtils;
 
-public class AnswerController extends AbstractController{
+public class DeleteController extends AbstractController{
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		AnswerDao dao = new AnswerDao();
-		String writer = ServletRequestUtils.getStringParameter(request, "writer");
-		String contents = ServletRequestUtils.getStringParameter(request, "contents");
+		QuestionDao qDao = new QuestionDao();
+		long answerId = ServletRequestUtils.getLongParameter(request, "answerId");
 		long questionId = ServletRequestUtils.getLongParameter(request, "questionId");
 		
-		dao.insert(new Answer(writer, contents, questionId));
-		QuestionDao qDao = new QuestionDao();
-		qDao.plusCount(questionId);
+		dao.deleteAnswer(answerId);
+		qDao.minusCount(questionId);
+		
 		ModelAndView mav = jsonView();
-		return mav;
+		return mav;	
 	}
 
 }

@@ -22,9 +22,15 @@ public class QuestionDao {
 				question.getCountOfComment());
 	}
 	
-	public void updateCount(long questionId) {
+	public void plusCount(long questionId) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		String sql = "UPDATE QUESTIONS SET countOfComment=countOfComment+1 WHERE questionId=?";
+		jdbcTemplate.update(sql, questionId);
+	}
+	
+	public void minusCount(long questionId) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		String sql = "UPDATE QUESTIONS SET countOfComment=countOfComment-1 WHERE questionId=?";
 		jdbcTemplate.update(sql, questionId);
 	}
 	
@@ -66,4 +72,6 @@ public class QuestionDao {
 		
 		return jdbcTemplate.queryForObject(sql, rm, questionId);
 	}
+
+
 }

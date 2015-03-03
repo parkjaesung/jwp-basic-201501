@@ -64,15 +64,20 @@
 	                <div class="about">내용 : </div>
 	                ${comment.contents}
 	            </div>
-	            <div>
+	            <div class="comment-delete">
+	            	<input type="hidden" value="${comment.answerId}">
+	            	<script>
+	            	var qid = '${comment.questionId}';
+	            	</script>
 	            	<a href="#">삭제</a>
 	            </div>
 	        </div>	    
 	       </c:forEach>
 	    
-	        
+	         
 	</div>
 	<!-- comments end -->
+	
 	
     </div>
     <%@ include file="/include/footer.jspf"%>
