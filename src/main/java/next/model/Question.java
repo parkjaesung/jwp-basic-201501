@@ -1,6 +1,9 @@
 package next.model;
 
 import java.util.Date;
+import java.util.List;
+
+import next.dao.AnswerDao;
 
 public class Question {
 	private long questionId;
@@ -84,6 +87,23 @@ public class Question {
 		Question other = (Question) obj;
 		if (questionId != other.questionId)
 			return false;
+		return true;
+	}
+
+	public boolean hasDeleteRight(String memberId, AnswerDao aDao) {
+		if(!memberId.equals(writer))
+			return false;
+		return answersCheck(aDao);
+	}
+		
+	private boolean answersCheck(AnswerDao aDao){
+		if(countOfComment == 0)
+			return true;
+		List<Answer> answers = aDao.findAllByQuestionId(questionId);
+		for(int i=0; i< answers.size(); i++){
+			if(!answers.get(i).getWriter().equals(writer))
+				return false;
+		}
 		return true;
 	}
 }

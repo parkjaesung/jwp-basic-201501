@@ -207,6 +207,7 @@ h3 span {
 }
 
 .comment {
+	position: relative;
     width: 70%;
     clear: both;
 }
@@ -252,6 +253,12 @@ h3 span {
 	position: absolute;
 	top: 4px;
 	left: -4px;
+}
+
+.comment .comment-delete {
+	position: absolute;
+	right: -35px;
+	top: 10px;
 }
 
 /** Form **/
