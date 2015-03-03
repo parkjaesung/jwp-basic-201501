@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import next.dao.DaoFactory;
 import next.dao.QuestionDao;
 import next.model.Question;
 import core.mvc.AbstractController;
@@ -15,9 +16,9 @@ public class ListController extends AbstractController {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		QuestionDao questionDao = new QuestionDao();
+		QuestionDao qDao = DaoFactory.getQuestionDao();
 		List<Question> questions;
-		questions = questionDao.findAll();
+		questions = qDao.findAll();
 		
 		ModelAndView mav = jstlView("list.jsp");
 		mav.addObject("questions", questions);

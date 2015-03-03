@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import next.dao.AnswerDao;
+import next.dao.DaoFactory;
 import next.dao.QuestionDao;
 import next.model.Answer;
 import next.model.Question;
@@ -23,15 +24,16 @@ public class ShowController extends AbstractController {
 	@Override
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		QuestionDao questionDao = new QuestionDao();
-		AnswerDao answerDao = new AnswerDao();
+		QuestionDao qDao = DaoFactory.getQuestionDao();
+		AnswerDao aDao = DaoFactory.getAnswerDao();
+		
 		Question question;
 		List<Answer> answers;
 		
 		long questionId = ServletRequestUtils.getRequiredLongParameter(request, "questionId");
 		logger.debug("questionId : {}", questionId);
-		question = questionDao.findById(questionId);
-		answers = answerDao.findAllByQuestionId(questionId);
+		question = qDao.findById(questionId);
+		answers = aDao.findAllByQuestionId(questionId);
 		ModelAndView mav = jstlView("show.jsp");
 		mav.addObject("question", question);
 		mav.addObject("answers", answers);
