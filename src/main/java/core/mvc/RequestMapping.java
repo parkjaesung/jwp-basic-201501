@@ -16,8 +16,12 @@ import org.slf4j.LoggerFactory;
 public class RequestMapping {
 	private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 	private Map<String, Controller> mappings = new HashMap<String, Controller>();
+
+	public RequestMapping() {
+		initMapping();
+	}
 	
-	public void initMapping() {
+	private void initMapping() {
 		mappings.put("/list.next", new ListController());
 		mappings.put("/show.next", new ShowController());
 		mappings.put("/save.next", new SaveController());

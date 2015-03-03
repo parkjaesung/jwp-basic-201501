@@ -16,13 +16,9 @@ public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 	
-	private RequestMapping rm;
+	private RequestMapping rm = new RequestMapping();
+	
 
-	@Override
-	public void init() throws ServletException {
-		rm = new RequestMapping();
-		rm.initMapping();
-	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
