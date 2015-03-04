@@ -18,7 +18,6 @@ public class SaveController extends AbstractController {
 
 	
 	private QuestionDao questionDao = new QuestionDao();
-	private Question question;
 	
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -28,7 +27,7 @@ public class SaveController extends AbstractController {
 		
 		logger.debug("question inserted  title: {} writer: {} contents: {}",title,writer,contents);
 		
-		question = new Question(writer, title, contents);
+		Question question = new Question(writer, title, contents);
 		questionDao.insert(question);
 		
 		ModelAndView mav = jstlView("redirect:/list.next");
