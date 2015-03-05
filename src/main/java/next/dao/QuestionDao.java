@@ -22,6 +22,13 @@ public class QuestionDao {
 				question.getCountOfComment());
 	}
 	
+	public void updateCount(long questionId, int addCountOfComment) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		String sql = "UPDATE QUESTIONS SET countOfComment=countOfComment+? WHERE questionId = ?";
+		jdbcTemplate.update(sql,addCountOfComment,questionId);
+	}
+	
+	
 	public List<Question> findAll() {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		String sql = "SELECT questionId, writer, title, createdDate, countOfComment FROM QUESTIONS "

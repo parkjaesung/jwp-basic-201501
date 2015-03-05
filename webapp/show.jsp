@@ -64,8 +64,12 @@
 	                <div class="about">내용 : </div>
 					${result.contents}
 	            </div>
-	            <div>
-	            	<a href="#">삭제</a>
+	            <div class="answerDelete">
+					<form method="post">
+					<input type="hidden" name="questionId" value="${question.questionId}">
+					<input type="hidden" name="answerId" value="${result.answerId}">
+				    <input type="submit" value="삭제" />
+				    </form>
 	            </div>
 	        </div>	   
 	    	</c:forEach>
