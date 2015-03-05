@@ -3,6 +3,7 @@ package next.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import next.dao.DaoFactory;
 import next.dao.QuestionDao;
 import next.model.Question;
 
@@ -17,7 +18,8 @@ public class SaveController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
 
 	
-	private QuestionDao questionDao = new QuestionDao();
+	private QuestionDao questionDao = DaoFactory.getQuestionDao();
+	
 	
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
