@@ -14,5 +14,8 @@
 * list.jsp 파일을 보여준다.
 
 #### 10. ListController와 ShowController가 멀티 쓰레드 상황에서 문제가 발생하는 이유에 대해 설명하라.
-* 
+* reauestMapping 메소드를 통해 ListController 와 ShowContorller 인스턴스가 하나만 만들어진다.
+* 하나씩 만들어진 인스턴스 안에 있는 멤버 변수(멤버 필드)는 여러 사용자가 공유하게 된다.
+* 그러므로 메소드가 인스턴스안에 있는 멤버 변수에 동시에 접근할 경우 문제가 발생한다.
+   
 
