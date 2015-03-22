@@ -46,8 +46,8 @@ public class DispatcherServlet extends HttpServlet {
 
 	String urlExceptParameter(String forwardUrl) {
 		int index = forwardUrl.indexOf("?");
-		System.out.println("index"+index);
-		System.out.println("forward"+forwardUrl);
+//		System.out.println("index"+index);
+//		System.out.println("forward"+forwardUrl);
 		if (index > 0) {
 			return forwardUrl.substring(0, index);
 		}
