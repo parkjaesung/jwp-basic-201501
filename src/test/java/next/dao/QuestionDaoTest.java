@@ -33,6 +33,8 @@ public class QuestionDaoTest {
 	}
 	@Test
 	public void deleteQustionWithNoAnswer() throws Exception {
+		Question expected = new Question("자바지기", "title", "contents");
+		
 		long questionId = 1;
 		QuestionDao dut = new QuestionDao();
 		dut.delete(questionId);
@@ -41,7 +43,7 @@ public class QuestionDaoTest {
 	@Test
 	public void deleteQustionWithAnswerBySameWriter() throws Exception {
 		long questionId = 1;
-		QuestionDao dut = new QuestionDao();
+		QuestionDao dut = new Database();
 		dut.delete(questionId);
 		//지워져야함 
 	}
@@ -58,5 +60,9 @@ public class QuestionDaoTest {
 		QuestionDao dut = new QuestionDao();
 		dut.delete(questionId);
 		//않지워져야함 
+	}
+	@Test
+	public void mockito() throws Exception {
+		
 	}
 }
