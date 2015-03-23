@@ -1,6 +1,6 @@
 package next.dao;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -30,5 +30,33 @@ public class QuestionDaoTest {
 		
 		List<Question> questions = dut.findAll();
 		assertTrue(questions.size() > 0);
+	}
+	@Test
+	public void deleteQustionWithNoAnswer() throws Exception {
+		long questionId = 1;
+		QuestionDao dut = new QuestionDao();
+		dut.delete(questionId);
+		//지워져야함 
+	}
+	@Test
+	public void deleteQustionWithAnswerBySameWriter() throws Exception {
+		long questionId = 1;
+		QuestionDao dut = new QuestionDao();
+		dut.delete(questionId);
+		//지워져야함 
+	}
+	@Test
+	public void deleteQustionWithNoAnswerByNotSameWriter() throws Exception {
+		long questionId = 1;
+		QuestionDao dut = new QuestionDao();
+		dut.delete(questionId);
+		//않지워져야함 
+	}
+	@Test
+	public void deleteQustionWithNoAnswerByAllWriter() throws Exception {
+		long questionId = 1;
+		QuestionDao dut = new QuestionDao();
+		dut.delete(questionId);
+		//않지워져야함 
 	}
 }
