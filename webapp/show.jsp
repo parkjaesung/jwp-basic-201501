@@ -27,7 +27,7 @@
 	    </div>
 	</div>   
 	<div class="questionDelete">
-		<form method="post">
+		<form name="deleteForm" method="post">
 		<input type="hidden" name="questionId" value="${question.questionId}">
 	    <input type="submit" value="질문 삭제"/>
     	</form>
