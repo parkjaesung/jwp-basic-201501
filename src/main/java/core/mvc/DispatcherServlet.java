@@ -2,6 +2,7 @@ package core.mvc;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet(name="dispatcher", urlPatterns="*.next")
+@WebServlet(name="dispatcher", urlPatterns="*.next", loadOnStartup=1)
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -22,6 +23,7 @@ public class DispatcherServlet extends HttpServlet {
 	public void init() throws ServletException {
 		rm = new RequestMapping();
 		rm.initMapping();
+				
 	}
 
 	@Override
@@ -44,6 +46,8 @@ public class DispatcherServlet extends HttpServlet {
 
 	String urlExceptParameter(String forwardUrl) {
 		int index = forwardUrl.indexOf("?");
+//		System.out.println("index"+index);
+//		System.out.println("forward"+forwardUrl);
 		if (index > 0) {
 			return forwardUrl.substring(0, index);
 		}

@@ -10,18 +10,32 @@ import core.jdbc.JdbcTemplate;
 import core.jdbc.RowMapper;
 
 public class AnswerDao {
-
+	private static AnswerDao answerDao = new AnswerDao();
+	private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
+	
+	public static AnswerDao getInstance(){
+		return answerDao;
+	}
+	
+	
 	public void insert(Answer answer) {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		String sql = "INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES (?, ?, ?, ?)";
 		jdbcTemplate.update(sql, answer.getWriter(),
 				answer.getContents(),
 				new Timestamp(answer.getTimeFromCreateDate()),
 				answer.getQuestionId());
 	}
+	
+	public void delete(Long answerId) {
+		String sql = "DELETE ANSWERS WHERE answerId = ?";
+		jdbcTemplate.update(sql, answerId);
+	}
+	public void deleteAll(Long questionId) {
+		String sql = "DELETE ANSWERS WHERE questionId = ?";
+		jdbcTemplate.update(sql, questionId);
+	}
 
 	public List<Answer> findAllByQuestionId(long questionId) {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		String sql = "SELECT answerId, writer, contents, createdDate FROM ANSWERS WHERE questionId = ? "
 				+ "order by answerId desc";
 		
