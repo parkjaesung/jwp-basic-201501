@@ -30,7 +30,10 @@ public class AnswerDao {
 		String sql = "DELETE ANSWERS WHERE answerId = ?";
 		jdbcTemplate.update(sql, answerId);
 	}
-	
+	public void deleteAll(Long questionId) {
+		String sql = "DELETE ANSWERS WHERE questionId = ?";
+		jdbcTemplate.update(sql, questionId);
+	}
 
 	public List<Answer> findAllByQuestionId(long questionId) {
 		String sql = "SELECT answerId, writer, contents, createdDate FROM ANSWERS WHERE questionId = ? "

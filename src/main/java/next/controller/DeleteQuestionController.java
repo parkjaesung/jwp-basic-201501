@@ -19,15 +19,20 @@ public class DeleteQuestionController extends AbstractController {
 		long questionId = ServletRequestUtils.getRequiredLongParameter(request, "questionId");
 		logger.debug("questionId : {}", questionId);
 
-		QuestionService qs = new QuestionService(questionId);
-		if (qs.delete()) {
+		QuestionService qs = new QuestionService();
+
+		try {
+			qs.setQuestion(questionId);
+			qs.delete();
 			return jstlView("redirect:/list.next");
+
+		} catch (Exception e) {
+			ModelAndView mav = jstlView("show.jsp");
+			mav.addObject("question", qs.getQuestion());
+			mav.addObject("answers", qs.getAnswers());
+			mav.addObject("errorMessage", "다른 사용자가 추가한 댓글이 존재하여 삭제 할 수 없습니다. ");
+			return mav;
 		}
-		ModelAndView mav = jstlView("show.jsp");
-		mav.addObject("question", qs.getQuestion());
-		mav.addObject("answers", qs.getAnswers());
-		mav.addObject("errorMessage", "다른 사용자가 추가한 댓글이 존재하여 삭제 할 수 없습니다. ");
-		return mav;
 
 	}
 

@@ -2,8 +2,8 @@ package next.service;
 
 import java.util.List;
 
-import javax.servlet.ServletException;
 
+import next.exception.ExistedAnotherUserException;
 import next.dao.AnswerDao;
 import next.dao.QuestionDao;
 import next.exception.ResourceNotFoundException;
@@ -15,9 +15,8 @@ public class QuestionService {
 	AnswerDao answerDao = AnswerDao.getInstance();
 
 	Question question;
-	List<Answer> answers;
 
-	public QuestionService(long questionId) throws ResourceNotFoundException  {
+	public void setQuestion(long questionId) throws ResourceNotFoundException {
 		question = questionDao.findById(questionId);
 		if (question == null) {
 			throw new ResourceNotFoundException("존재하지 않는 질문 입니다 ");
@@ -25,28 +24,15 @@ public class QuestionService {
 
 	}
 
-	public boolean delete() {
-		answers = answerDao.findAllByQuestionId(question.getQuestionId());
+	public void delete() throws ExistedAnotherUserException{
+		List<Answer> answers = answerDao.findAllByQuestionId(question.getQuestionId());
 		if (isAnotherWriter(answers)) {
-			return false;
+			throw new ExistedAnotherUserException("다른 사용자가 추가한 댓글이 존재해 삭제할 수 없습니다.");
 		}
-		deleteAnswers(answers);
-		deleteQuestion();
-		return true;
-
-	}
-
-	private void deleteQuestion() {
+		answerDao.deleteAll(question.getQuestionId());
 		questionDao.delete(question.getQuestionId());
 
 	}
-
-	private void deleteAnswers(List<Answer> answers) {
-		for (Answer answer : answers) {
-			answerDao.delete(answer.getAnswerId());
-		}
-	}
-
 	private boolean isAnotherWriter(List<Answer> answers) {
 		if (answers.isEmpty())
 			return false;
@@ -63,9 +49,8 @@ public class QuestionService {
 	public Object getQuestion() {
 		return question;
 	}
-
-	public Object getAnswers() {
-		return answers;
+	public Object getAnswers(){
+		return  answerDao.findAllByQuestionId(question.getQuestionId());
 	}
 
 }
