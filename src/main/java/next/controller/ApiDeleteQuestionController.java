@@ -10,7 +10,6 @@ import next.dao.DaoFactory;
 import next.dao.QuestionDao;
 import next.model.Answer;
 import next.model.Question;
-import next.service.DeleteQuestion;
 import next.service.QuestionService;
 
 import org.slf4j.Logger;
@@ -34,8 +33,8 @@ public class ApiDeleteQuestionController extends AbstractController {
 
 		long questionId = ServletRequestUtils.getRequiredLongParameter(request, "questionId");
 		logger.debug("questionId : {}", questionId);
-		question = questionDao.findById(questionId);
-		answers = answerDao.findAllByQuestionId(questionId);
+		Question question = questionDao.findById(questionId);
+		List<Answer> answers = answerDao.findAllByQuestionId(questionId);
 		
 		QuestionService qs = new QuestionService();
 		
