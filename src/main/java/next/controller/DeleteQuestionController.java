@@ -1,15 +1,9 @@
 package next.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import next.dao.AnswerDao;
-import next.dao.DaoFactory;
-import next.dao.QuestionDao;
-import next.model.Answer;
-import next.model.Question;
+import next.service.QuestionService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,37 +14,18 @@ import core.utils.ServletRequestUtils;
 
 public class DeleteQuestionController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(DeleteQuestionController.class);
-	
-	private QuestionDao questionDao = DaoFactory.getQuestionDao();
-	private AnswerDao answerDao = DaoFactory.getAnswerDao();
-	
-	@Override
-	public ModelAndView execute(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		Question question;
-		List<Answer> answers;
+
+	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		long questionId = ServletRequestUtils.getRequiredLongParameter(request, "questionId");
 		logger.debug("questionId : {}", questionId);
-		question = questionDao.findById(questionId);
-		answers = answerDao.findAllByQuestionId(questionId);
-		if(answers.size()!= 0 && isNotSameWriter(answers,question)){
-			
-		}else{
-			questionDao.delete(questionId);
+
+		QuestionService qs = new QuestionService(questionId);
+		if (qs.delete()) {
+			// 성공
 		}
-		
 		ModelAndView mav = jstlView("redirect:/list.next");
 		return mav;
-	}
 
-	private boolean isNotSameWriter(List<Answer> answers, Question question) {
-		for (Answer answer : answers) {
-			if(answer.getWriter() != question.getWriter()){
-				return true;
-			}
-		}
-		return false;
 	}
-
 
 }
