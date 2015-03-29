@@ -10,25 +10,19 @@ import next.model.Answer;
 import next.model.Question;
 
 public class QuestionService {
-	static QuestionService qs = new QuestionService();
 	QuestionDao questionDao = QuestionDao.getInstance();
 	AnswerDao answerDao = AnswerDao.getInstance();
 
 	Question question;
 	List<Answer> answers;
 
-	public static QuestionService getInstance() {
-		return qs;
-	}
-	
-
-	public void setQuestion(long questionId) throws ServletException {
+	public QuestionService(long questionId) throws ServletException {
 		question = questionDao.findById(questionId);
 		if (question == null) {
 			throw new ServletException("존재하지 않는 질문 입니다 ");
 		}
-	}
 
+	}
 
 	public boolean delete() {
 		answers = answerDao.findAllByQuestionId(question.getQuestionId());

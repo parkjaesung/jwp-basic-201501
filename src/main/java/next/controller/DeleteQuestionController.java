@@ -19,9 +19,7 @@ public class DeleteQuestionController extends AbstractController {
 		long questionId = ServletRequestUtils.getRequiredLongParameter(request, "questionId");
 		logger.debug("questionId : {}", questionId);
 
-		QuestionService qs = QuestionService.getInstance();
-		qs.setQuestion(questionId);
-		
+		QuestionService qs = new QuestionService(questionId);
 		if (qs.delete()) {
 			return jstlView("redirect:/list.next");
 		}
