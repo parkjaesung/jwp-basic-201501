@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import next.dao.AnswerDao;
-import next.dao.DaoFactory;
 import next.dao.QuestionDao;
 
 import org.slf4j.Logger;
@@ -20,8 +19,8 @@ public class DeleteAnswerController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(DeleteAnswerController.class);
 
 	
-	private AnswerDao answerDao = DaoFactory.getAnswerDao();
-	private QuestionDao questionDao = DaoFactory.getQuestionDao();
+	private AnswerDao answerDao = AnswerDao.getInstance();
+	private QuestionDao questionDao = QuestionDao.getInstance();
 	
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

@@ -5,14 +5,13 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import next.dao.AnswerDao;
-import next.dao.DaoFactory;
 import next.dao.QuestionDao;
 import next.model.Answer;
 import next.model.Question;
 
 public class QuestionService {
-	QuestionDao questionDao = DaoFactory.getQuestionDao();
-	AnswerDao answerDao = DaoFactory.getAnswerDao();
+	QuestionDao questionDao = QuestionDao.getInstance();
+	AnswerDao answerDao = AnswerDao.getInstance();
 
 	Question question;
 	List<Answer> answers;

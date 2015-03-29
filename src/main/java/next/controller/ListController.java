@@ -5,14 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import next.dao.DaoFactory;
 import next.dao.QuestionDao;
 import next.model.Question;
 import core.mvc.AbstractController;
 import core.mvc.ModelAndView;
 
 public class ListController extends AbstractController {
-	private QuestionDao questionDao = DaoFactory.getQuestionDao();
+	private QuestionDao questionDao = QuestionDao.getInstance();
 
 	
 	@Override

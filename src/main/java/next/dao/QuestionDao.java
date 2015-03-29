@@ -10,8 +10,10 @@ import core.jdbc.JdbcTemplate;
 import core.jdbc.RowMapper;
 
 public class QuestionDao {
-	QuestionDao() {
-		
+	private static QuestionDao questionDao = new QuestionDao();
+	
+	public static QuestionDao getInstance() {
+		return questionDao;
 	}
 
 	public void insert(Question question) {
@@ -76,4 +78,6 @@ public class QuestionDao {
 		String sql = "DELETE FROM QUESTIONS WHERE questionId = ?";
 		jdbcTemplate.update(sql, questionId);
 	}
+
+
 }
