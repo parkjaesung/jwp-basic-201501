@@ -20,9 +20,6 @@ import org.slf4j.LoggerFactory;
 public class RequestMapping {
 	private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 	private Map<String, Controller> mappings = new HashMap<String, Controller>();
-	QuestionDao questionDao;
-	AnswerDao answerDao;
-	
 	
 	public void initMapping() {
 		mappings.put("/list.next", new ListController());
